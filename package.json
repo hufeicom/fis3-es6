@@ -1,0 +1,21 @@
+{
+  "name": "okayfis",
+  "version": "1.0.0",
+  "description": "fis3 es6 babel transform-runtime",
+  "main": "index.js",
+  "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "fis3-hook-commonjs": "^0.1.31",
+    "fis3": "^3.4.40",
+    "fis3-parser-babel": "^1.2.4",
+    "fis3-parser-okaybabel": "^1.0.1",
+    "fis3-postpackager-loader": "^2.1.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
