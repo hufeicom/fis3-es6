@@ -284,4 +284,7 @@ var define;
 
     require.timeout = 5000;
 
+
+    require.resourceMap(__RESOURCE_MAP__);
+
 })(this);

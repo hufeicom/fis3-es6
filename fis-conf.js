@@ -1,53 +1,56 @@
+
 fis.set('project.ignore', [
-	'output/**',
-	'node_modules/**',
-	'src/**',
-	'.git/**',
-	'.vscode/**'
-	,'package.json'
+    'output/**',
+    'node_modules/**',
+    'src/**',
+    '.git/**',
+    '.vscode/**'
+    , 'package.json'
+    , 'fis-conf.js'
 ]);
+
+// fis.set('project.fileType.text', 'es');
+// fis.match('server/**.es', {
+//     parser: fis.plugin('babel-6.x', {
+//         // presets: [
+//         // 注意一旦这里在这里添加了 presets 配置，则会覆盖默认加载的 preset-2015 等插件，因此需要自行添加所有需要使用的 presets
+//         // ]
+//     }),
+//     rExt: 'js'
+// });
+
 fis
-.match('::package', {
-	postpackager: fis.plugin('loader', {
-			resourceType: 'commonJs',
-			allInOne: {
-
-				sourceMap: true
-			},
-			resourceMap: 'resourcemap.js', 
-			useInlineMap: false // 资源映射表内嵌
-	})
-})	
-.match('/([^mod\.js]*.js)', {
-		isMod: true,
-		moduleId: 'common:$1',
-		parser: fis.plugin('okaybabel', {
-			"presets": ["env"],
-			"plugins": ["transform-runtime"]
-		}),
-		rExt: '.js' // 代码编译产出时，后缀改成 .js
-	})
-
-	.match('/src/lib/(**.js)', {
-		parser: fis.plugin('okayrequire')
-	})
-	.match('/src/lib/(**.js)', {
-		isMod: true,
-		moduleId: '$1'
-	})
-	.match('/src/lib/babel-runtime/node_modules/(**.js)', {
-		isMod: true,
-		moduleId: '$1'
-	})
-	.match('/mod.js', {
-		isMod: false,
-		packOrder: -100
-	})
-	.match('/fis-conf.js', {
-		release: false
-	})
-	.hook('commonjs', {
-		path: {
-			'$': '/mod.js'
-		}
-	});;
+    .match('**.js', {
+        isMod: true,
+        // parser: fis.plugin('babel-plugin', 
+        parser: fis.plugin('babel-6.x', 
+        {
+            // "presets" : [
+            //     [ "env", {
+            //         targets: {
+            //           browsers: [
+            //             '>1%',
+            //             'not ie < 9',
+            //           ],
+            //         },
+            //         modules: false,
+            //         useBuiltIns: true,
+            //         debug: true,
+            //       }]
+            // ],
+            // "plugins": [["transform-regenerator", {
+            //     "asyncGenerators": true,
+            //     "generators": true,
+            //     "async": true
+            //   }]]
+        }
+        )
+    })
+    .match('/mod.js', {
+        isMod: false,
+        parser: null
+    })
+    .match('/fis-conf.js', {
+        release: false
+    })
+    .hook('commonjs');
